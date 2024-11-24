@@ -1,5 +1,10 @@
 // The following game is played through the console.
 
+console.log("A new game begins!");
+
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice () {
     let num = Math.random();
     if (num <= 0.3) {
@@ -13,7 +18,9 @@ function getComputerChoice () {
     }
 }
 
-console.log(getComputerChoice()); //debug
+const computerSelection = getComputerChoice();
+
+console.log(computerSelection); //debug
 
 function getHumanChoice () {
     let choice = prompt("Choose: rock, paper or scissors", "rock");
@@ -27,5 +34,22 @@ function getHumanChoice () {
     }    
 }
 
-console.log(getHumanChoice());  //debug
+
+function playRound (humanChoice,computerChoice) {
+    if ( (computerChoice=="rock" && humanChoice == "paper") || (computerChoice =="paper" && humanChoice == "scissors") || (computerChoice=="scissors" && humanChoice == "rock") ) {
+        console.log("Good job! You won this round!");
+        humanScore++;
+    }else if (computerChoice == humanChoice) {
+        console.log("Ops! You tied.")
+    }else {
+        console.log("Unlucky! You lost this round.")
+    }
+}
+
+const humanSelection = getHumanChoice();
+
+console.log(humanSelection);  //debug
+
+
+playRound(humanSelection, computerSelection);
 

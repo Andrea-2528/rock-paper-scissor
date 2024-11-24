@@ -18,10 +18,6 @@ function getComputerChoice () {
     }
 }
 
-const computerSelection = getComputerChoice();
-
-console.log(computerSelection); //debug
-
 function getHumanChoice () {
     let choice = prompt("Choose: rock, paper or scissors", "rock");
     choice = choice.toLowerCase();
@@ -34,7 +30,6 @@ function getHumanChoice () {
     }    
 }
 
-
 function playRound (humanChoice,computerChoice) {
     if ( (computerChoice=="rock" && humanChoice == "paper") || (computerChoice =="paper" && humanChoice == "scissors") || (computerChoice=="scissors" && humanChoice == "rock") ) {
         console.log("Good job! You won this round!");
@@ -43,13 +38,31 @@ function playRound (humanChoice,computerChoice) {
         console.log("Ops! You tied.")
     }else {
         console.log("Unlucky! You lost this round.")
+        computerScore++;
     }
 }
 
-const humanSelection = getHumanChoice();
+function playGame () {
+    
+    console.log("Five rounds will be played:");
 
-console.log(humanSelection);  //debug
+    for (let i=0; i<5 ; i++) {
+        const computerSelection = getComputerChoice();
+        const humanSelection = getHumanChoice();
+        playRound(humanSelection, computerSelection);
+        console.log(`The score is: Human = ${humanScore} Computer = ${computerScore}`);
+    }
 
+    if (humanScore>computerScore) {
+        console.log("Congratulations!!! You won the game!");
+    }else if (humanScore<computerScore) {
+        console.log("What a shame!!! You lost the game!");
+    }else {
+        console.log("How boring... you tied...");
+    }
 
-playRound(humanSelection, computerSelection);
+}
 
+playGame();
+
+console.log("Refresh the page to play again!");

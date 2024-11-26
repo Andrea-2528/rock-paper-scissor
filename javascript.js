@@ -1,7 +1,10 @@
-console.log("A new game begins!");
+let announcer = document.querySelector(".announcer");
+let humanScore = document.querySelector(".humanScore")
+let computerScore = document.querySelector(".computerScore");
 
-let humanScore = 0;
-let computerScore = 0;
+announcer.textContent="A new game begins!"
+humanScore.textContent=0;
+computerScore.textContent=0;
 
 function getComputerChoice () {
     let num = Math.floor((Math.random())*3 + 1);
@@ -17,21 +20,44 @@ function getComputerChoice () {
 }
 
 function playRound (humanChoice,computerChoice) {
-    if ( (computerChoice=="rock" && humanChoice == "paper") || (computerChoice =="paper" && humanChoice == "scissors") || (computerChoice=="scissors" && humanChoice == "rock") ) {
-        console.log("Good job! You won this round!");
-        humanScore++;
-    }else if (computerChoice == humanChoice) {
-        console.log("Ops! You tied.")
-    }else {
-        console.log("Unlucky! You lost this round.")
-        computerScore++;
-    }
+    announcer.textContent="";    
+    setTimeout ( () => {
+        if ( (computerChoice=="rock" && humanChoice == "paper") || (computerChoice =="paper" && humanChoice == "scissors") || (computerChoice=="scissors" && humanChoice == "rock") ) {
+            humanScore.textContent=parseInt(humanScore.textContent) + 1;
+            announcer.textContent="Good job! You won this round.";
+        }else if (computerChoice == humanChoice) {
+            announcer.textContent="Ops! You tied.";
+        }else {
+            computerScore.textContent=parseInt(computerScore.textContent) + 1;
+            announcer.textContent="Unlucky! You lost this round."
+        }
+
+
+        if (humanScore.textContent=="5") {
+
+            announcer.textContent="Congratulations!!! You won the match!";
+            document.querySelector(".buttons").remove();
+            const message = document.createElement("div");
+            message.textContent = "Reload the page if you want to play again."
+            message.classList.add("extraMessage");
+            announcer.parentNode.appendChild(message);
+        
+        } else if (computerScore.textContent=="5") {
+            
+            announcer.textContent="What a shame!!! You lost the match!";
+            document.querySelector(".buttons").remove();
+            const message = document.createElement("div");
+            message.textContent = "Reload the page if you want to play again."
+            message.classList.add("extraMessage");
+            announcer.parentNode.appendChild(message);
+        
+        }
+    }, 100);
 }
 
 const rockButton = document.querySelector("#rock");
 const paperButton = document.querySelector("#paper");
 const scissorsButton = document.querySelector("#scissors");
-
 
 rockButton.addEventListener("click", () => playRound("rock", getComputerChoice()));
 paperButton.addEventListener("click", () => playRound("paper", getComputerChoice()));
